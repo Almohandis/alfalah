@@ -13,7 +13,7 @@
             border-color: black;
         }
 
-        /* @media print {
+        @media print {
             body {
                 margin: 1.3cm;
                 padding: 1.3cm;
@@ -22,7 +22,8 @@
 
         @page {
             margin: 0;
-        } */
+            border: 1px solid black;
+        }
 
         table,
         th,
@@ -52,7 +53,7 @@
     </div>
 
     <div class="flex flex-col mt-8">
-        <div>الطالب:</div>
+        <div>اسم الطالب:</div>
         <div>اسم المعلم:</div>
         <div>تاريخ استلام الجدول:</div>
     </div>
@@ -61,94 +62,87 @@
         <table class="w-full border-black border-2">
             <tr>
                 <th class="w-2" rowspan="2">الأسبوع</th>
-                <th class="w-14" rowspan="2">التاريخ</th>
-                <th class="w-24" rowspan="2">اليوم</th>
+                <th class="w-14" rowspan="2">اليوم</th>
+                <th class="w-24" rowspan="2">التاريخ</th>
                 <th colspan="2">الحفظ</th>
                 @if ($plan->confirm_faces)
                     <th colspan="2">التثبيت</th>
                 @endif
-                <th rowspan="2">الإنجاز</th>
+                <th class="w-32" rowspan="2">الإنجاز</th>
             </tr>
             <tr>
-                <th>من</th>
-                <th>إلى</th>
+                <th >من</th>
+                <th >إلى</th>
                 @if ($plan->confirm_faces)
-                    <th>من</th>
-                    <th>إلى</th>
+                    <th >من</th>
+                    <th >إلى</th>
                 @endif
             </tr>
             @php
-                $days_counter = 0;
                 $weeks_counter = 1;
-                $parts_counter = 0;
-                $start_save = $parts[0]->sura . ' ' . $parts[0]->start;
-                $end_save = '';
                 $start_confirm = $parts[0]->sura . ' ' . $parts[0]->start;
-                $end_confirm = '';
-                $border_bottom = 1;
-                $save_faces = $plan->save_faces;
-                $current_save_faces = 0;
-                $confirm_faces = $plan->confirm_faces;
-                $current_confirm_faces = 0;
+                $previous_confirm = '';
+                $save_faces = $plan->save_faces * 2;
+                $confirm_faces = $plan->confirm_faces * 2;
+                $confirm_counter = 0;
+                $first_confirm = 0;
             @endphp
-            @if ($plan->is_same)
-                @foreach ($parts as $part)
+
+            @for ($i = 0; $i <= ceil(count($parts) / ($plan->save_faces * 2) - 1); $i++)
+                @if ($i % $plan->days == 0)
+                    <tr class="border-black border-t-2">
+                    @else
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td></td>
-                        <td></td>
+                @endif
+                @if (($i + 1) % $plan->days == 1 && $weeks_counter < $num_weeks)
+                    <td rowspan="{{ $plan->days }}">{{ $weeks_counter++ }}</td>
+                @elseif (($i + 1) % $plan->days == 1 && $weeks_counter == $num_weeks)
+                    <td rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
+                @endif
 
-                    </tr>
-                @endforeach
-            @else
-                @foreach ($parts as $part)
-                    @php
-                        if ($confirm_faces) {
-                            $end_confirm = $end_save;
-                            if ($current_save_faces % $save_faces == 0 && $current_confirm_faces % $confirm_faces == 0) {
-                                $end_confirm = $end_save;
-                                $current_confirm_faces++;
-                            } elseif ($current_save_faces % $save_faces == 0 && $current_confirm_faces == $confirm_faces) {
-                                $start_confirm = $end_save;
-                                $current_confirm_faces = 0;
+                <td></td>
+                <td></td>
+
+                <td>{{ $parts[$i * $save_faces]->sura . ' ' . $parts[$i * $save_faces]->start }}</td>
+                @if (ceil(count($parts) / ($plan->save_faces * 2) - 1) != $i)
+                    <td>{{ $parts[($i + 1) * $save_faces - 1]->sura . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
+                    </td>
+                @else
+                    <td>{{ $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->sura . ' ' . $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->end }}
+                    </td>
+                @endif
+
+                @php
+                    $previous_confirm = $start_confirm;
+                @endphp
+                @if ($confirm_faces && $i != 0)
+                    @if ($i * $save_faces < $confirm_faces + $save_faces)
+                        <td>{{ $start_confirm }}</td>
+                        <td>{{ $parts[$first_confirm + $save_faces - 1]->sura . ' ' . $parts[$first_confirm + $save_faces - 1]->end }}
+                        </td>
+                        @php
+                            $first_confirm++;
+                        @endphp
+                    @else
+                        @php
+                            $first_confirm++;
+                            if ($i != 0) {
+                                $confirm_counter++;
                             }
-                        }
-                        if ($current_save_faces % $save_faces == 0) {
-                            $start_save = $part->sura . ' ' . $part->start;
-                            $current_save_faces++;
-                        }
-
-                        if ($current_save_faces == $save_faces) {
-                            $current_save_faces = 0;
-                        }
-                    @endphp
-                    @php
-                        $days_counter++;
-                    @endphp
-                    @if ($days_counter % $plan->days === 1)
-                        <tr class="border-black border-t-2">
-                        @else
-                        <tr>
+                        @endphp
+                        <td>{{ $parts[$confirm_counter]->sura . ' ' . $parts[$confirm_counter]->start }}</td>
+                        <td>{{ $parts[$confirm_counter + $confirm_faces - 1]->sura . ' ' . $parts[$confirm_counter + $confirm_faces - 1]->end }}
+                        </td>
                     @endif
-
-                    @if ($days_counter % $plan->days === 1 && $weeks_counter < $num_weeks)
-                        <td rowspan="{{ $plan->days }}">{{ $weeks_counter++ }}</td>
-                    @elseif ($days_counter % $plan->days === 1 && $weeks_counter == $num_weeks)
-                        <td rowspan="{{ $days_counter % $plan->days }}">{{ $weeks_counter++ }}</td>
-                    @endif
+                @else
                     <td></td>
                     <td></td>
-
-                    </tr>
-                @endforeach
-            @endif
-
+                @endif
+                <td></td>
+                </tr>
+            @endfor
         </table>
     </div>
-
-
-
-
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
 
