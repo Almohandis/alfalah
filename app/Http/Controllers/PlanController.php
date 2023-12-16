@@ -10,9 +10,9 @@ class PlanController extends Controller
 {
     public function savePlans()
     {
-        $saves = SavePlan::get();
+        $plans = SavePlan::get();
         return view('save-plans', [
-            'saves' =>  $saves,
+            'plans' =>  $plans,
         ]);
     }
     public function addSavePlan()
@@ -77,5 +77,14 @@ class PlanController extends Controller
             'num_days'  => $number_of_days,
             'num_weeks' => $number_of_weeks,
         ]);
+    }
+    public function editSavePlan(SavePlan $plan)
+    {
+        return view('edit-save-plan', [
+            'plan' => $plan,
+        ]);
+    }
+    public function updateSavePlan(SavePlan $plan)
+    {
     }
 }

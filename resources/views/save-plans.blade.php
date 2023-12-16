@@ -17,7 +17,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @if ($saves->isNotEmpty())
+                    @if ($plans->isNotEmpty())
                         <table>
                             <tr>
                                 <th>م</th>
@@ -32,19 +32,20 @@
                                 <th>طباعة</th>
                                 <th>حذف</th>
                             </tr>
-                            @foreach ($saves as $save)
+                            @foreach ($plans as $plan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $save->name }}</td>
-                                    <td>{{ $save->direction ? 'من الفاتحة إلى الناس' : 'من الناس إلى الفاتحة' }}</td>
-                                    <td>{{ $save->juz }}</td>
-                                    <td>{{ $save->save_faces }}</td>
-                                    <td>{{ $save->confirm_faces }}</td>
-                                    <td>{{ $save->days }}</td>
-                                    <td>{{ $save->is_same ? 'نعم' : 'لا' }}</td>
-                                    <td><a class="underline underline-offset-8" href="">تعديل</a></td>
+                                    <td>{{ $plan->name }}</td>
+                                    <td>{{ $plan->direction ? 'من الفاتحة إلى الناس' : 'من الناس إلى الفاتحة' }}</td>
+                                    <td>{{ $plan->juz }}</td>
+                                    <td>{{ $plan->save_faces }}</td>
+                                    <td>{{ $plan->confirm_faces }}</td>
+                                    <td>{{ $plan->days }}</td>
+                                    <td>{{ $plan->is_same ? 'نعم' : 'لا' }}</td>
                                     <td><a class="underline underline-offset-8"
-                                            href="{{ route('print-save-plan', ['plan' => $save->id]) }}">طباعة</a></td>
+                                            href="{{ route('edit-save-plan', ['plan' => $plan->id]) }}">تعديل</a></td>
+                                    <td><a class="underline underline-offset-8"
+                                            href="{{ route('print-save-plan', ['plan' => $plan->id]) }}">طباعة</a></td>
                                     <td><a class="underline underline-offset-8" href="">حذف</a></td>
                                 </tr>
                             @endforeach
