@@ -55,7 +55,8 @@ class PlanController extends Controller
     {
         $parts = Part::where('juz', $plan->juz);
         if (!$plan->direction) {
-            $parts->orderBy('sura', 'desc')->get();
+            $parts = $parts->orderBy('rank', 'desc')->get();
+            // return $parts;
         } else {
             $parts = $parts->get();
         }
@@ -67,8 +68,7 @@ class PlanController extends Controller
         $number_of_actual_parts = ceil($number_of_parts / ($plan->save_faces * 2));
         $number_of_days = $number_of_actual_parts;
         $number_of_weeks = $plan->is_same ? $number_of_actual_parts : ceil($number_of_actual_parts / $plan->days);
-        // return ceil(count($parts) / ($plan->save_faces * 2) - 1);
-        // return $number_of_weeks;
+
         return view('print-save-plan', [
             'parts' => $parts,
             'plan' => $plan,

@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->id();
-            $table->string('sura');
+            $table->tinyInteger('rank');
+            $table->string('name');
             $table->tinyInteger('juz');
-            $table->integer('start');
-            $table->integer('end');
+            $table->smallInteger('start');
+            $table->smallInteger('end');
             $table->timestamps();
         });
     }

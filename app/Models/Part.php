@@ -10,7 +10,8 @@ class Part extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sura',
+        'rank',
+        'name',
         'juz',
         'start',
         'end',

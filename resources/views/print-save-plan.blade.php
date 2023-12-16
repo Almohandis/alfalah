@@ -20,10 +20,10 @@
             }
         }
 
-        @page {
+        /* @page {
             margin: 0;
             border: 1px solid black;
-        }
+        } */
 
         table,
         th,
@@ -80,7 +80,7 @@
             </tr>
             @php
                 $weeks_counter = 1;
-                $start_confirm = $parts[0]->sura . ' ' . $parts[0]->start;
+                $start_confirm = $parts[0]->name . ' ' . $parts[0]->start;
                 $previous_confirm = '';
                 $save_faces = $plan->save_faces * 2;
                 $confirm_faces = $plan->confirm_faces * 2;
@@ -103,12 +103,12 @@
                 <td></td>
                 <td></td>
 
-                <td>{{ $parts[$i * $save_faces]->sura . ' ' . $parts[$i * $save_faces]->start }}</td>
+                <td>{{ $parts[$i * $save_faces]->name . ' ' . $parts[$i * $save_faces]->start }}</td>
                 @if (ceil(count($parts) / ($plan->save_faces * 2) - 1) != $i)
-                    <td>{{ $parts[($i + 1) * $save_faces - 1]->sura . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
+                    <td>{{ $parts[($i + 1) * $save_faces - 1]->name . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
                     </td>
                 @else
-                    <td>{{ $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->sura . ' ' . $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->end }}
+                    <td>{{ $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->name . ' ' . $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->end }}
                     </td>
                 @endif
 
@@ -118,7 +118,7 @@
                 @if ($confirm_faces && $i != 0)
                     @if ($i * $save_faces < $confirm_faces + $save_faces)
                         <td>{{ $start_confirm }}</td>
-                        <td>{{ $parts[$first_confirm + $save_faces - 1]->sura . ' ' . $parts[$first_confirm + $save_faces - 1]->end }}
+                        <td>{{ $parts[$first_confirm + $save_faces - 1]->name . ' ' . $parts[$first_confirm + $save_faces - 1]->end }}
                         </td>
                         @php
                             $first_confirm++;
@@ -130,8 +130,8 @@
                                 $confirm_counter++;
                             }
                         @endphp
-                        <td>{{ $parts[$confirm_counter]->sura . ' ' . $parts[$confirm_counter]->start }}</td>
-                        <td>{{ $parts[$confirm_counter + $confirm_faces - 1]->sura . ' ' . $parts[$confirm_counter + $confirm_faces - 1]->end }}
+                        <td>{{ $parts[$confirm_counter]->name . ' ' . $parts[$confirm_counter]->start }}</td>
+                        <td>{{ $parts[$confirm_counter + $confirm_faces - 1]->name . ' ' . $parts[$confirm_counter + $confirm_faces - 1]->end }}
                         </td>
                     @endif
                 @else

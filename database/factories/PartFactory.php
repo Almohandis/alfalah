@@ -17,10 +17,11 @@ class PartFactory extends Factory
     public function definition(): array
     {
         return [
-            'sura' => '.',
-            'juz' => '.',
-            'start' => '.',
-            'end'   => '.',
+            'rank' => 1,
+            'name' => '.',
+            'juz' => 1,
+            'start' => 1,
+            'end'   => 1,
         ];
     }
 }
