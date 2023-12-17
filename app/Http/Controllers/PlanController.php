@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Juz;
 use App\Models\Part;
+use App\Models\ReviewPlan;
 use App\Models\SavePlan;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
+    // Save plans
     public function savePlans()
     {
         $plans = SavePlan::get();
@@ -18,10 +21,6 @@ class PlanController extends Controller
     public function addSavePlan()
     {
         return view('add-save-plan');
-    }
-    public function addReviewPlan()
-    {
-        return view('add-review-plan');
     }
     public function createSavePlan(Request $request)
     {
@@ -118,5 +117,40 @@ class PlanController extends Controller
     {
         $plan->delete();
         return redirect()->back()->withSuccess('تم حذف الخطة بنجاح');
+    }
+    // Review plans
+    public function reviewPlans()
+    {
+        $plans = ReviewPlan::get();
+        return view('review-plans', [
+            'plans' =>  $plans,
+        ]);
+    }
+    public function addReviewPlan()
+    {
+        $juzs = Juz::get();
+        return view('add-review-plan', [
+            'juzs'  => $juzs,
+        ]);
+    }
+    public function createReviewPlan(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'review_faces' => 'required',
+            'days'  => 'required',
+            'juzs'  => 'required',
+        ]);
+        $plan = ReviewPlan::create([
+            'name'  => $request->name,
+            'review_faces'    => $request->review_faces,
+            'days'  => $request->days,
+        ]);
+
+        foreach ($request->juzs as $juz) {
+            $plan->juzs()->attach($juz);
+        }
+
+        return redirect()->back()->withSuccess('تم إضافة الخطة بنجاح');
     }
 }

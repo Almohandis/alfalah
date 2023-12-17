@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Review plans
     Route::get('/review-plans', [PlanController::class, 'reviewPlans'])->name('review-plans');
     Route::get('/arp', [PlanController::class, 'addReviewPlan'])->name('add-review-plan');
+    Route::post('/crp', [PlanController::class, 'createReviewPlan'])->name('create-review-plan');
 });
 
 require __DIR__ . '/auth.php';
