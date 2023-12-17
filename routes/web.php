@@ -31,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/psp/{plan}', [PlanController::class, 'printSavePlan'])->name('print-save-plan');
     Route::get('/esp/{plan}', [PlanController::class, 'editSavePlan'])->name('edit-save-plan');
     Route::post('/usp/{plan}', [PlanController::class, 'updateSavePlan'])->name('update-save-plan');
+    Route::post('/dsp/{plan}', [PlanController::class, 'deleteSavePlan'])->name('delete-save-plan');
 
     // Review plans
     Route::get('/review-plans', [PlanController::class, 'reviewPlans'])->name('review-plans');

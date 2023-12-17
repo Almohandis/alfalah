@@ -114,4 +114,9 @@ class PlanController extends Controller
         ]);
         return redirect()->back()->withSuccess('تم تعديل الخطة بنجاح');
     }
+    public function deleteSavePlan(SavePlan $plan)
+    {
+        $plan->delete();
+        return redirect()->back()->withSuccess('تم حذف الخطة بنجاح');
+    }
 }
