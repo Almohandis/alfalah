@@ -8,22 +8,55 @@
     <title>دار الفلاح</title>
     <style>
         * {
-            direction: rtl;
+            direction: rtl !important;
             font-weight: bold;
-            border-color: black;
+            font-family: serif;
         }
 
-        @media print {
-            body {
-                margin: 1.3cm;
-                padding: 1.3cm;
-            }
+        @page {
+            margin: 1.8cm 1cm 1.8cm 1cm;
         }
 
-        /* @page {
-            margin: 0;
-            border: 1px solid black;
-        } */
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto
+        }
+
+        td {
+            page-break-inside: avoid;
+            page-break-after: auto
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tr:nth-child(even) {
+            background: #FFF
+        }
+
+        tr:nth-child(odd) {
+            background: #CCC
+        }
+
+        .th {
+            background-color: #FFF;
+        }
+
+        table {
+            text-align: center;
+            width: 100%;
+        }
+
+        th {
+            font-weight: bold;
+            border-bottom: 1px solid black;
+            background: #FFF;
+        }
 
         table,
         th,
@@ -36,7 +69,6 @@
 </head>
 
 <body>
-
     <div class="flex items-center justify-between">
         <div>
             <p class="text-3xl align-middle">خطة الحفظ</p>
@@ -58,12 +90,14 @@
         <div>تاريخ استلام الجدول:</div>
     </div>
 
+
+
     <div class="flex mt-8">
         <table class="w-full border-black border-2">
             <tr>
-                <th class="w-2" rowspan="2">الأسبوع</th>
+                <th class="w-1" rowspan="2">الأسبوع</th>
                 <th class="w-14" rowspan="2">اليوم</th>
-                <th class="w-24" rowspan="2">التاريخ</th>
+                <th class="w-20" rowspan="2">التاريخ</th>
                 <th colspan="2">الحفظ</th>
                 @if ($plan->confirm_faces)
                     <th colspan="2">التثبيت</th>
@@ -84,6 +118,12 @@
                 $save_faces = $plan->save_faces * 2;
                 $confirm_faces = $plan->confirm_faces * 2;
                 $current_week = -1;
+                // function arDigits($str)
+                // {
+                //     $arabic_eastern = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+                //     $arabic_western = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                //     return str_replace($arabic_western, $arabic_eastern, $str);
+                // }
             @endphp
 
             @for ($i = 0; $i < $num_days; $i++)
@@ -93,12 +133,12 @@
                     <tr>
                 @endif
                 @if (($i + 1) % $plan->days == 1 && $weeks_counter < $num_weeks)
-                    <td rowspan="{{ $plan->days }}">{{ $weeks_counter++ }}</td>
+                    <td class="th" rowspan="{{ $plan->days }}">{{ $weeks_counter++ }}</td>
                     @php
                         $current_week++;
                     @endphp
                 @elseif (($i + 1) % $plan->days == 1 && $weeks_counter == $num_weeks)
-                    <td rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
+                    <td class="th" rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
                     @php
                         $current_week++;
                     @endphp
@@ -171,7 +211,34 @@
             @endfor
         </table>
     </div>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.onload = function() {
+            String.prototype.toIndiaDigits = function() {
+                var id = [
+                    '٠',
+                    '١',
+                    '٢',
+                    '٣',
+                    '٤',
+                    '٥',
+                    '٦',
+                    '٧',
+                    '٨',
+                    '٩'
+                ];
+                return this.replace(/[0-9]/g, function(w) {
+                    return id[+w]
+                });
+            }
+            let elements = document.querySelectorAll('td');
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = elements[i].innerHTML.toIndiaDigits();
+            }
+        }
+    </script>
+
 </body>
 
 </html>
