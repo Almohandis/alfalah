@@ -85,7 +85,33 @@ class PlanController extends Controller
             'plan' => $plan,
         ]);
     }
-    public function updateSavePlan(SavePlan $plan)
+    public function updateSavePlan(Request $request, SavePlan $plan)
     {
+        $request->validate([
+            'name' => 'required',
+            'direction' => 'required',
+            'juz'   => 'required',
+            'save_faces' => 'required',
+            'days'  => 'required',
+        ]);
+        if ($request->confirm_faces) {
+            $request->validate([
+                'confirm_faces' => 'required',
+            ]);
+            if ($request->confirm_faces < $request->save_faces) {
+                return redirect()->back()->withErrors('أوجه التثبيت يجب أن تكون أكبر من أو تساوي أوجه الحفظ');
+            }
+        }
+        // return $request;
+        $plan->update([
+            'name'  => $request->name,
+            'direction' => $request->direction,
+            'juz'   => $request->juz,
+            'save_faces'    => $request->save_faces,
+            'confirm_faces' => $request->confirm_faces,
+            'days'  => $request->days,
+            'is_same'   => $request->is_same ?? 0,
+        ]);
+        return redirect()->back()->withSuccess('تم تعديل الخطة بنجاح');
     }
 }
