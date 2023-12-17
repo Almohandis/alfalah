@@ -84,9 +84,6 @@
                 $save_faces = $plan->save_faces * 2;
                 $confirm_faces = $plan->confirm_faces * 2;
                 $current_week = -1;
-                $week_start = false;
-                $subtract_faces = 0;
-                $current_part = 1;
             @endphp
 
             @for ($i = 0; $i < $num_days; $i++)
@@ -99,13 +96,11 @@
                     <td rowspan="{{ $plan->days }}">{{ $weeks_counter++ }}</td>
                     @php
                         $current_week++;
-                        $week_start = true;
                     @endphp
                 @elseif (($i + 1) % $plan->days == 1 && $weeks_counter == $num_weeks)
                     <td rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
                     @php
                         $current_week++;
-                        $week_start = true;
                     @endphp
                 @endif
 
@@ -128,16 +123,10 @@
                     {{-- With repetition (repeat every day within every week) --}}
                     <td>{{ $parts[$current_week * $save_faces]->name . ' ' . $parts[$current_week * $save_faces]->start }}
                     </td>
-                    {{-- @php
-                        dd('current part: ' . $current_part . ', num weeks: ' . $num_weeks . ', i: ' . $i . ', current week:' . $current_week . ', num days: ' . $num_days);
-                    @endphp --}}
                     @if ($current_week != $num_weeks - 1)
                         <td>{{ $parts[($current_week + 1) * $save_faces - 1]->name . ' ' . $parts[($current_week + 1) * $save_faces - 1]->end }}
                         </td>
                     @else
-                        {{-- @php
-                            dd('current part: ' . $current_part . ', num weeks: ' . $num_weeks . ', i: ' . $i . ', current week:' . $current_week . ', num days: ' . $num_days);
-                        @endphp --}}
                         <td>{{ $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->name . ' ' . $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->end }}
                         </td>
                     @endif
@@ -179,11 +168,6 @@
 
                 <td></td>
                 </tr>
-                @php
-                    $week_start = false;
-                    $subtract_faces += $save_faces;
-                    $current_part++;
-                @endphp
             @endfor
         </table>
     </div>
