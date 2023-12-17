@@ -53,8 +53,8 @@
     </div>
 
     <div class="flex flex-col mt-8">
-        <div>اسم الطالب:</div>
-        <div>اسم المعلم:</div>
+        <div>اسم الطالب/ة :</div>
+        <div>اسم المعلم/ة :</div>
         <div>تاريخ استلام الجدول:</div>
     </div>
 
@@ -71,24 +71,25 @@
                 <th class="w-32" rowspan="2">الإنجاز</th>
             </tr>
             <tr>
-                <th >من</th>
-                <th >إلى</th>
+                <th>من</th>
+                <th>إلى</th>
                 @if ($plan->confirm_faces)
-                    <th >من</th>
-                    <th >إلى</th>
+                    <th>من</th>
+                    <th>إلى</th>
                 @endif
             </tr>
             @php
                 $weeks_counter = 1;
                 $start_confirm = $parts[0]->name . ' ' . $parts[0]->start;
-                $previous_confirm = '';
                 $save_faces = $plan->save_faces * 2;
                 $confirm_faces = $plan->confirm_faces * 2;
-                $confirm_counter = 0;
-                $first_confirm = 0;
+                $current_week = -1;
+                $week_start = false;
+                $subtract_faces = 0;
+                $current_part = 1;
             @endphp
 
-            @for ($i = 0; $i <= ceil(count($parts) / ($plan->save_faces * 2) - 1); $i++)
+            @for ($i = 0; $i < $num_days; $i++)
                 @if ($i % $plan->days == 0)
                     <tr class="border-black border-t-2">
                     @else
@@ -96,50 +97,93 @@
                 @endif
                 @if (($i + 1) % $plan->days == 1 && $weeks_counter < $num_weeks)
                     <td rowspan="{{ $plan->days }}">{{ $weeks_counter++ }}</td>
+                    @php
+                        $current_week++;
+                        $week_start = true;
+                    @endphp
                 @elseif (($i + 1) % $plan->days == 1 && $weeks_counter == $num_weeks)
                     <td rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
+                    @php
+                        $current_week++;
+                        $week_start = true;
+                    @endphp
                 @endif
 
                 <td></td>
                 <td></td>
-
-                <td>{{ $parts[$i * $save_faces]->name . ' ' . $parts[$i * $save_faces]->start }}</td>
-                @if (ceil(count($parts) / ($plan->save_faces * 2) - 1) != $i)
-                    <td>{{ $parts[($i + 1) * $save_faces - 1]->name . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
-                    </td>
-                @else
-                    <td>{{ $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->name . ' ' . $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->end }}
-                    </td>
-                @endif
-
-                @php
-                    $previous_confirm = $start_confirm;
-                @endphp
-                @if ($confirm_faces && $i != 0)
-                    @if ($i * $save_faces < $confirm_faces + $save_faces)
-                        <td>{{ $start_confirm }}</td>
-                        <td>{{ $parts[$first_confirm + $save_faces - 1]->name . ' ' . $parts[$first_confirm + $save_faces - 1]->end }}
+                {{-- Without repetition (unique every day) --}}
+                @if (!$plan->is_same)
+                    {{-- Get the starting of the part by multiplying number of save faces by i --}}
+                    <td>{{ $parts[$i * $save_faces]->name . ' ' . $parts[$i * $save_faces]->start }}</td>
+                    {{-- If the current part is not the last part --}}
+                    @if (ceil($num_parts / $save_faces - 1) != $i)
+                        <td>{{ $parts[($i + 1) * $save_faces - 1]->name . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
                         </td>
-                        @php
-                            $first_confirm++;
-                        @endphp
                     @else
-                        @php
-                            $first_confirm++;
-                            if ($i != 0) {
-                                $confirm_counter++;
-                            }
-                        @endphp
-                        <td>{{ $parts[$confirm_counter]->name . ' ' . $parts[$confirm_counter]->start }}</td>
-                        <td>{{ $parts[$confirm_counter + $confirm_faces - 1]->name . ' ' . $parts[$confirm_counter + $confirm_faces - 1]->end }}
+                        {{-- If the current part is the last part, calculate the remaining which can be less than a single save face --}}
+                        <td>{{ $parts[($i + ($num_parts % $save_faces) - 1) * $save_faces]->name . ' ' . $parts[($i + ((count($parts) % $save_faces) - 1)) * $save_faces]->end }}
                         </td>
                     @endif
                 @else
-                    <td></td>
-                    <td></td>
+                    {{-- With repetition (repeat every day within every week) --}}
+                    <td>{{ $parts[$current_week * $save_faces]->name . ' ' . $parts[$current_week * $save_faces]->start }}
+                    </td>
+                    {{-- @php
+                        dd('current part: ' . $current_part . ', num weeks: ' . $num_weeks . ', i: ' . $i . ', current week:' . $current_week . ', num days: ' . $num_days);
+                    @endphp --}}
+                    @if ($current_week != $num_weeks - 1)
+                        <td>{{ $parts[($current_week + 1) * $save_faces - 1]->name . ' ' . $parts[($current_week + 1) * $save_faces - 1]->end }}
+                        </td>
+                    @else
+                        {{-- @php
+                            dd('current part: ' . $current_part . ', num weeks: ' . $num_weeks . ', i: ' . $i . ', current week:' . $current_week . ', num days: ' . $num_days);
+                        @endphp --}}
+                        <td>{{ $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->name . ' ' . $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->end }}
+                        </td>
+                    @endif
                 @endif
+
+                @if (!$plan->is_same)
+                    @if ($confirm_faces && $i != 0)
+                        @if ($i * $save_faces <= $confirm_faces)
+                            <td>{{ $start_confirm }}</td>
+                            <td>{{ $parts[$i * $save_faces - 1]->name . ' ' . $parts[$i * $save_faces - 1]->end }}
+                            </td>
+                        @else
+                            <td>{{ $parts[$i * $save_faces - $confirm_faces]->name . ' ' . $parts[$i * $save_faces - $confirm_faces]->start }}
+                            </td>
+                            <td>{{ $parts[$i * $save_faces - 1]->name . ' ' . $parts[$i * $save_faces - 1]->end }}
+                            </td>
+                        @endif
+                    @else
+                        <td></td>
+                        <td></td>
+                    @endif
+                @else
+                    @if ($confirm_faces && $current_week != 0)
+                        @if ($current_week * $save_faces <= $confirm_faces)
+                            <td>{{ $start_confirm }}</td>
+                            <td>{{ $parts[$current_week * $save_faces - 1]->name . ' ' . $parts[$current_week * $save_faces - 1]->end }}
+                            </td>
+                        @else
+                            <td>{{ $parts[$current_week * $save_faces - $confirm_faces]->name . ' ' . $parts[$current_week * $save_faces - $confirm_faces]->start }}
+                            </td>
+                            <td>{{ $parts[$current_week * $save_faces - 1]->name . ' ' . $parts[$current_week * $save_faces - 1]->end }}
+                            </td>
+                        @endif
+                    @else
+                        <td></td>
+                        <td></td>
+                    @endif
+                @endif
+
                 <td></td>
                 </tr>
+                @php
+                    $week_start = false;
+                    $subtract_faces += $save_faces;
+                    $current_part++;
+                @endphp
             @endfor
         </table>
     </div>

@@ -66,8 +66,9 @@ class PlanController extends Controller
          */
         $number_of_parts = $parts->count();
         $number_of_actual_parts = ceil($number_of_parts / ($plan->save_faces * 2));
-        $number_of_days = $number_of_actual_parts;
+        $number_of_days = $plan->is_same ? $number_of_actual_parts * $plan->days : $number_of_actual_parts;
         $number_of_weeks = $plan->is_same ? $number_of_actual_parts : ceil($number_of_actual_parts / $plan->days);
+        // return $number_of_days;
 
         return view('print-save-plan', [
             'parts' => $parts,
