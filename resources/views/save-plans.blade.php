@@ -54,7 +54,7 @@
                                     <td><a class="underline underline-offset-8 mx-2"
                                             href="{{ route('edit-save-plan', ['plan' => $plan->id]) }}">تعديل</a></td>
                                     <td><a class="underline underline-offset-8 mx-2"
-                                            href="{{ route('print-save-plan', ['plan' => $plan->id]) }}">طباعة</a></td>
+                                            href="{{ route('print-save-plan', ['plan' => $plan->id]) }}" target="_blank">طباعة</a></td>
                                     <td class="flex">
                                         <form action="{{ route('delete-save-plan', ['plan' => $plan->id]) }}"
                                             method="POST">

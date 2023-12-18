@@ -13,46 +13,47 @@
             font-family: serif;
         }
 
+        .page-footer {
+            height: 50px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid black;
+        }
+
+        .page-header {
+            height: 150px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media print {
+            thead {
+                display: table-header-group;
+            }
+
+            tfoot {
+                display: table-footer-group;
+            }
+        }
+
+        .invis {
+            background-color: white;
+            border: none !important;
+        }
+
         @page {
-            margin: 150px 50px 70px 50px;
+            margin: 1cm 1cm 1cm 1cm;
         }
 
-        img {
-            display: block;
-            padding: 0;
-            margin: 0;
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto
         }
 
-        p {
-            margin: 0;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 22px;
-            margin-bottom: 40px;
-        }
-
-        h3 {
-            font-size: 18px;
-            font-weight: normal;
-            margin-bottom: 20px;
-        }
-
-        body {
-            font-family: serif;
-            margin: 5px 10px;
-            padding: 5px;
-        }
-
-        table,
-        tr,
-        td,
-        th,
-        thead,
-        tbody {
-            padding: 3px 6px;
-            margin: 5px;
+        td {
+            page-break-inside: avoid;
+            page-break-after: auto
         }
 
         tr:nth-child(even) {
@@ -63,93 +64,44 @@
             background: #CCC
         }
 
+        .th {
+            background-color: #FFF;
+        }
+
         table {
-            border-collapse: collapse;
-            text-align: left;
-            border-spacing: 2px;
+            text-align: center;
             width: 100%;
+            page-break-inside: auto;
+            border: none !important;
         }
 
         th {
             font-weight: bold;
             border-bottom: 1px solid black;
             background: #FFF;
-            text-align: left;
         }
 
-        tr {
-            border-bottom: 1px solid black;
-            border-color: inherit;
-            font-size: 80%;
-        }
-
-        #logo-div {
-            margin: 0 auto;
-            width: auto;
-            position: fixed;
-            left: 0px;
-            top: -150px;
-            right: 0px;
-            height: 150px;
+        th,
+        td {
+            border: 1px solid black;
             text-align: center;
-        }
-
-        #footer {
-            display: block;
-            padding: 10px;
-            bottom: 0px;
-            margin-top: auto;
-            border-top: 1px solid black;
-            position: fixed;
-            left: 0px;
-            bottom: -70px;
-            right: 0px;
-            height: 70px;
-        }
-
-        .container {
-            margin-top: 50px;
-            position: relative;
-            height: auto;
-        }
-
-        p {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            display: block;
-            padding: 10px;
-            bottom: 30px;
-            margin-top: auto;
-            position: fixed;
-            left: 0px;
-            right: 0px;
+            padding: 3px;
         }
     </style>
 </head>
 
 <body>
-    <div id="logo-div" class="flex items-center justify-between">
-        <div>
-            <p class="text-3xl align-middle">خطة الحفظ</p>
-        </div>
+
+    <div class="page-header">
+        <p class="text-3xl" style="align-self: center;">خطة الحفظ</p>
+
         <div>
             <img src="{{ asset('logo.jpg') }}" alt="الشعار" width="100">
         </div>
     </div>
 
-    <div id="footer">
-        <p>Date: {{ date('M d, Y') }}, time: {{ date('h:i A') }} </p>
-    </div>
 
-
-
-
-
-
-
-    <div class="flex mt-5">
+    <div class="flex mt-3">
         <div class="mx-auto">
             {{ $plan->name }}
         </div>
@@ -162,9 +114,9 @@
     </div>
 
 
-    <div class="container">
-        <div class="flex mt-8">
-            <table class="w-full border-black border-2">
+    <div class="flex mt-8">
+        <table class="w-full border-black border-2">
+            <thead>
                 <tr>
                     <th class="w-1" rowspan="2">الأسبوع</th>
                     <th class="w-14" rowspan="2">اليوم</th>
@@ -183,18 +135,15 @@
                         <th>إلى</th>
                     @endif
                 </tr>
+            </thead>
+
+            <tbody>
                 @php
                     $weeks_counter = 1;
                     $start_confirm = $parts[0]->name . ' ' . $parts[0]->start;
                     $save_faces = $plan->save_faces * 2;
                     $confirm_faces = $plan->confirm_faces * 2;
                     $current_week = -1;
-                    // function arDigits($str)
-                    // {
-                    //     $arabic_eastern = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-                    //     $arabic_western = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-                    //     return str_replace($arabic_western, $arabic_eastern, $str);
-                    // }
                 @endphp
 
                 @for ($i = 0; $i < $num_days; $i++)
@@ -280,17 +229,24 @@
                     <td></td>
                     </tr>
                 @endfor
-            </table>
-        </div>
-        <div style="height:180px;"></div>
-        <div class="footer">
-            <p>Email: aigps.ml@gmail.com</p>
-            <p>Tel: +20 154 2015 467</p>
-            <br>
-            <p>Signature:.......................</p>
-            <p>Remarks:.........................</p>
-        </div>
+            </tbody>
+
+            <tfoot class="invis">
+                <tr class="invis">
+                    <td class="invis" style="height: 50px;"></td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
+
+
+
+    <div class="page-footer">
+        {{-- <p>Date: {{ date('M d, Y') }}, time: {{ date('h:i A') }} </p> --}}
+        <p class="text-center">جميع الحقوق محفوظة لدار الفلاح - {{ date('Y') }} &copy;</p>
+    </div>
+
+
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -316,11 +272,10 @@
             for (let i = 0; i < elements.length; i++) {
                 elements[i].innerHTML = elements[i].innerHTML.toIndiaDigits();
             }
+            document.querySelector('tbody').lastElementChild.style.borderBottom = '2px solid black';
+            window.print();
         }
     </script>
-
-    
-
 </body>
 
 </html>

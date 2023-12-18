@@ -70,38 +70,6 @@ class PlanController extends Controller
         $number_of_days = $plan->is_same ? $number_of_actual_parts * $plan->days : $number_of_actual_parts;
         $number_of_weeks = $plan->is_same ? $number_of_actual_parts : ceil($number_of_actual_parts / $plan->days);
 
-
-        // $title = 45;
-        // $pdf = Pdf::loadView('test', [
-        //     'tit' => $title,
-        // ]);
-        // return $pdf->stream();
-
-        // $num_parts = $number_of_parts;
-        // $num_actual_parts = $number_of_actual_parts;
-        // $num_days = $number_of_days;
-        // $num_weeks = $number_of_weeks;
-
-
-        $pdf = Pdf::loadView('test', [
-            'parts' => $parts,
-            'plan' => $plan,
-            'num_parts' =>  $number_of_parts,
-            'num_actual_parts'  => $number_of_actual_parts,
-            'num_days'  => $number_of_days,
-            'num_weeks' => $number_of_weeks,
-        ]);
-        return $pdf->stream();
-
-        // $pdf = Pdf::loadView('print-save-plan', compact(
-        //     'parts',
-        //     'plan',
-        //     'num_parts',
-        //     'num_actual_parts',
-        //     'num_days',
-        //     'num_weeks',
-        // ));
-
         return view('print-save-plan', [
             'parts' => $parts,
             'plan' => $plan,
