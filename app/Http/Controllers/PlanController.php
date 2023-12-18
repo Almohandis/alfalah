@@ -6,6 +6,7 @@ use App\Models\Juz;
 use App\Models\Part;
 use App\Models\ReviewPlan;
 use App\Models\SavePlan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
@@ -52,6 +53,7 @@ class PlanController extends Controller
     }
     public function printSavePlan(SavePlan $plan)
     {
+
         $parts = Part::where('juz', $plan->juz);
         if (!$plan->direction) {
             $parts = $parts->orderBy('rank', 'desc')->get();
@@ -67,7 +69,38 @@ class PlanController extends Controller
         $number_of_actual_parts = ceil($number_of_parts / ($plan->save_faces * 2));
         $number_of_days = $plan->is_same ? $number_of_actual_parts * $plan->days : $number_of_actual_parts;
         $number_of_weeks = $plan->is_same ? $number_of_actual_parts : ceil($number_of_actual_parts / $plan->days);
-        // return $number_of_days;
+
+
+        // $title = 45;
+        // $pdf = Pdf::loadView('test', [
+        //     'tit' => $title,
+        // ]);
+        // return $pdf->stream();
+
+        // $num_parts = $number_of_parts;
+        // $num_actual_parts = $number_of_actual_parts;
+        // $num_days = $number_of_days;
+        // $num_weeks = $number_of_weeks;
+
+
+        $pdf = Pdf::loadView('test', [
+            'parts' => $parts,
+            'plan' => $plan,
+            'num_parts' =>  $number_of_parts,
+            'num_actual_parts'  => $number_of_actual_parts,
+            'num_days'  => $number_of_days,
+            'num_weeks' => $number_of_weeks,
+        ]);
+        return $pdf->stream();
+
+        // $pdf = Pdf::loadView('print-save-plan', compact(
+        //     'parts',
+        //     'plan',
+        //     'num_parts',
+        //     'num_actual_parts',
+        //     'num_days',
+        //     'num_weeks',
+        // ));
 
         return view('print-save-plan', [
             'parts' => $parts,
