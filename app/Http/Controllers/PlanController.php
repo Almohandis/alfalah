@@ -53,7 +53,6 @@ class PlanController extends Controller
     }
     public function printSavePlan(SavePlan $plan)
     {
-
         $parts = Part::where('juz', $plan->juz);
         if (!$plan->direction) {
             $parts = $parts->orderBy('rank', 'desc')->get();
@@ -69,6 +68,8 @@ class PlanController extends Controller
         $number_of_actual_parts = ceil($number_of_parts / ($plan->save_faces * 2));
         $number_of_days = $plan->is_same ? $number_of_actual_parts * $plan->days : $number_of_actual_parts;
         $number_of_weeks = $plan->is_same ? $number_of_actual_parts : ceil($number_of_actual_parts / $plan->days);
+
+        // return $number_of_weeks;
 
         return view('print-save-plan', [
             'parts' => $parts,
@@ -123,6 +124,7 @@ class PlanController extends Controller
     public function reviewPlans()
     {
         $plans = ReviewPlan::get();
+        // return $plans[1]->juzs[0]->id;
         return view('review-plans', [
             'plans' =>  $plans,
         ]);
@@ -153,5 +155,25 @@ class PlanController extends Controller
         }
 
         return redirect()->back()->withSuccess('تم إضافة الخطة بنجاح');
+    }
+    public function printReviewPlan(ReviewPlan $plan)
+    {
+        $juzs = $plan->juzs->pluck('id');
+        $parts = Part::whereIn('juz', $juzs)->get();
+
+        $number_of_parts = $parts->count();
+        $number_of_actual_parts = ceil($number_of_parts / ($plan->review_faces * 2));
+        $number_of_days = $number_of_actual_parts;
+        $number_of_weeks = ceil($number_of_actual_parts / $plan->days);
+
+        return view('print-review-plan', [
+            'parts' => $parts,
+            'plan' => $plan,
+            'num_parts' =>  $number_of_parts,
+            'num_actual_parts'  => $number_of_actual_parts,
+            'num_days'  => $number_of_days,
+            'num_weeks' => $number_of_weeks,
+        ]);
+
     }
 }

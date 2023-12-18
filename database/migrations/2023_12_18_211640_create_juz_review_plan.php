@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parts', function (Blueprint $table) {
+        Schema::create('juz_review_plan', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('juz');
-            $table->tinyInteger('rank');
-            $table->string('start_name');
-            $table->smallInteger('start');
-            $table->string('end_name');
-            $table->smallInteger('end');
+            $table->integer('review_plan_id');
+            $table->integer('juz_id');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parts');
+        Schema::dropIfExists('juz_review_plan');
     }
 };

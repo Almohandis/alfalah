@@ -93,7 +93,7 @@
 <body>
 
     <div class="page-header">
-        <p class="text-3xl" style="align-self: center;">خطة الحفظ</p>
+        <p class="text-3xl" style="align-self: center;">خطة المراجعة</p>
 
         <div>
             <img src="{{ asset('logo.jpg') }}" alt="الشعار" width="100">
@@ -121,28 +121,19 @@
                     <th class="w-1" rowspan="2">الأسبوع</th>
                     <th class="w-14" rowspan="2">اليوم</th>
                     <th class="w-20" rowspan="2">التاريخ</th>
-                    <th colspan="2">الحفظ</th>
-                    @if ($plan->confirm_faces)
-                        <th colspan="2">التثبيت</th>
-                    @endif
+                    <th colspan="2">المراجعة</th>
                     <th class="w-32" rowspan="2">الإنجاز</th>
                 </tr>
                 <tr>
                     <th>من</th>
                     <th>إلى</th>
-                    @if ($plan->confirm_faces)
-                        <th>من</th>
-                        <th>إلى</th>
-                    @endif
                 </tr>
             </thead>
 
             <tbody>
                 @php
                     $weeks_counter = 1;
-                    $start_confirm = $parts[0]->start_name . ' ' . $parts[0]->start;
-                    $save_faces = $plan->save_faces * 2;
-                    $confirm_faces = $plan->confirm_faces * 2;
+                    $review_faces = $plan->review_faces * 2;
                     $current_week = -1;
                 @endphp
 
@@ -166,65 +157,17 @@
 
                     <td></td>
                     <td></td>
-                    {{-- Without repetition (unique every day) --}}
-                    @if (!$plan->is_same)
-                        {{-- Get the starting of the part by multiplying number of save faces by i --}}
-                        <td>{{ $parts[$i * $save_faces]->start_name . ' ' . $parts[$i * $save_faces]->start }}</td>
-                        {{-- If the current part is not the last part --}}
-                        @if (ceil($num_parts / $save_faces - 1) != $i)
-                            <td>{{ $parts[($i + 1) * $save_faces - 1]->end_name . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
-                            </td>
-                        @else
-                            {{-- {{ dd($i) }} --}}
-                            {{-- If the current part is the last part, calculate the remaining which can be less than a single save face --}}
-                            <td>{{ $parts[$i * $save_faces + ($num_parts % $save_faces) - 1]->end_name . ' ' . $parts[$i * $save_faces + ($num_parts % $save_faces) - 1]->end }}
-                            </td>
-                        @endif
-                    @else
-                        {{-- With repetition (repeat every day within every week) --}}
-                        <td>{{ $parts[$current_week * $save_faces]->start_name . ' ' . $parts[$current_week * $save_faces]->start }}
-                        </td>
-                        @if ($current_week != $num_weeks - 1)
-                            <td>{{ $parts[($current_week + 1) * $save_faces - 1]->end_name . ' ' . $parts[($current_week + 1) * $save_faces - 1]->end }}
-                            </td>
-                        @else
-                            <td>{{ $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->end_name . ' ' . $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->end }}
-                            </td>
-                        @endif
-                    @endif
 
-                    @if (!$plan->is_same)
-                        @if ($confirm_faces && $i != 0)
-                            @if ($i * $save_faces <= $confirm_faces)
-                                <td>{{ $start_confirm }}</td>
-                                <td>{{ $parts[$i * $save_faces - 1]->end_name . ' ' . $parts[$i * $save_faces - 1]->end }}
-                                </td>
-                            @else
-                                <td>{{ $parts[$i * $save_faces - $confirm_faces]->start_name . ' ' . $parts[$i * $save_faces - $confirm_faces]->start }}
-                                </td>
-                                <td>{{ $parts[$i * $save_faces - 1]->end_name . ' ' . $parts[$i * $save_faces - 1]->end }}
-                                </td>
-                            @endif
-                        @else
-                            <td></td>
-                            <td></td>
-                        @endif
+                    {{-- Get the starting of the part by multiplying number of review faces by i --}}
+                    <td>{{ $parts[$i * $review_faces]->start_name . ' ' . $parts[$i * $review_faces]->start }}</td>
+                    {{-- If the current part is not the last part --}}
+                    @if (ceil($num_parts / $review_faces - 1) != $i)
+                        <td>{{ $parts[($i + 1) * $review_faces - 1]->end_name . ' ' . $parts[($i + 1) * $review_faces - 1]->end }}
+                        </td>
                     @else
-                        @if ($confirm_faces && $current_week != 0)
-                            @if ($current_week * $save_faces <= $confirm_faces)
-                                <td>{{ $start_confirm }}</td>
-                                <td>{{ $parts[$current_week * $save_faces - 1]->end_name . ' ' . $parts[$current_week * $save_faces - 1]->end }}
-                                </td>
-                            @else
-                                <td>{{ $parts[$current_week * $save_faces - $confirm_faces]->start_name . ' ' . $parts[$current_week * $save_faces - $confirm_faces]->start }}
-                                </td>
-                                <td>{{ $parts[$current_week * $save_faces - 1]->end_name . ' ' . $parts[$current_week * $save_faces - 1]->end }}
-                                </td>
-                            @endif
-                        @else
-                            <td></td>
-                            <td></td>
-                        @endif
+                        {{-- If the current part is the last part, calculate the remaining which can be less than a single review face --}}
+                        <td>{{ $parts[($i + ($num_parts % $review_faces) - 1) * $review_faces]->end_name . ' ' . $parts[($i + ((count($parts) % $review_faces) - 1)) * $review_faces]->end }}
+                        </td>
                     @endif
 
                     <td></td>

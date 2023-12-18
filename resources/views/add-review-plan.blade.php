@@ -40,8 +40,7 @@
                             <div class="flex">
                                 @for ($j = 0; $j < 5; $j++)
                                     <div class="w-14">
-                                        <input type="checkbox" name="juzs[]" value="{{ $juzs[$i * 5 + $j]->id }}"
-                                            required>
+                                        <input type="checkbox" name="juzs[]" value="{{ $juzs[$i * 5 + $j]->id }}">
                                         {{ $juzs[$i * 5 + $j]->id }}
                                     </div>
                                 @endfor

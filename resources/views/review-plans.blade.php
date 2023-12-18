@@ -43,17 +43,24 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $plan->name }}</td>
                                     <td>[
+                                        @php
+                                            $i = 0;
+                                        @endphp
                                         @for ($i = 0; $i < count($plan->juzs) - 1; $i++)
-                                            {{ $plan->juzs[$i] }}،
+                                            {{ $plan->juzs[$i]->id }},
                                         @endfor
-                                        {{ end($plan->juzs) }}]
+                                        @php
+                                            $last_juz = $plan->juzs[$i]->id;
+                                        @endphp
+                                        {{ $last_juz }}]
                                     </td>
                                     <td>{{ $plan->review_faces }}</td>
                                     <td>{{ $plan->days }}</td>
                                     <td><a class="underline underline-offset-8 mx-2"
                                             href="{{ route('edit-review-plan', ['plan' => $plan->id]) }}">تعديل</a></td>
                                     <td><a class="underline underline-offset-8 mx-2"
-                                            href="{{ route('print-review-plan', ['plan' => $plan->id]) }}">طباعة</a>
+                                            href="{{ route('print-review-plan', ['plan' => $plan->id]) }}"
+                                            target="_blank">طباعة</a>
                                     </td>
                                     <td class="flex">
                                         <form action="{{ route('delete-review-plan', ['plan' => $plan->id]) }}"
