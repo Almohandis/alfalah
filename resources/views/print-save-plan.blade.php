@@ -176,13 +176,14 @@
                         {{-- Get the starting of the part by multiplying number of save faces by i --}}
                         <td>{{ $parts[$i * $save_faces]->start_name . ' ' . $parts[$i * $save_faces]->start }}</td>
                         {{-- If the current part is not the last part --}}
-                        @if (ceil($num_parts / $save_faces - 1) != $i)
+                        {{-- ceil($num_parts / $save_faces - 1) --}}
+                        @if ($num_days - 1 != $i)
                             <td>{{ $parts[($i + 1) * $save_faces - 1]->end_name . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
                             </td>
                         @else
                             {{-- {{ dd($i) }} --}}
                             {{-- If the current part is the last part, calculate the remaining which can be less than a single save face --}}
-                            <td>{{ $parts[$i * $save_faces + ($num_parts % $save_faces) - 1]->end_name . ' ' . $parts[$i * $save_faces + ($num_parts % $save_faces) - 1]->end }}
+                            <td>{{ $parts[$i * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end_name . ' ' . $parts[$i * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end }}
                             </td>
                         @endif
                     @else
@@ -193,7 +194,8 @@
                             <td>{{ $parts[($current_week + 1) * $save_faces - 1]->end_name . ' ' . $parts[($current_week + 1) * $save_faces - 1]->end }}
                             </td>
                         @else
-                            <td>{{ $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->end_name . ' ' . $parts[$current_week * $save_faces + ($num_parts % $save_faces) - 1]->end }}
+                            {{-- {{ dd('i: ' . $i . ',  current week:' . $current_week . ', num weeks: ' . $num_weeks . ', num faces:' . $save_faces) }} --}}
+                            <td>{{ $parts[$current_week * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end_name . ' ' . $parts[$current_week * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end }}
                             </td>
                         @endif
                     @endif

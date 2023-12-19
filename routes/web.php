@@ -22,6 +22,9 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('welcome');
 
+Route::get('login', function () {
+    return redirect()->route('/');
+});
 Route::post('login', [LoginController::class, 'index'])->name('login');
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -171,7 +171,7 @@
                         </td>
                     @else
                         {{-- If the current part is the last part, calculate the remaining which can be less than a single review face --}}
-                        <td>{{ $parts[($i + ($num_parts % $review_faces) - 1) * $review_faces]->end_name . ' ' . $parts[($i + ((count($parts) % $review_faces) - 1)) * $review_faces]->end }}
+                        <td>{{ $parts[$i * $review_faces + ($num_parts % $review_faces) - 1]->end_name . ' ' . $parts[$i * $review_faces + ($num_parts % $review_faces) - 1]->end }}
                         </td>
                     @endif
 

@@ -52,7 +52,7 @@
                         <div>عدد أيام التسميع في كل أسبوع: <input type="number" name="days" step="1"
                                 min="1" max="7" value="1" required>
                         </div>
-                        <div>تكرار مقدار الحفظ نفسه في الأسبوع الواحد <input type="checkbox" name="is_same"></div>
+                        <div>تكرار مقدار الحفظ نفسه في الأسبوع الواحد <input type="checkbox" name="is_same" value="1"></div>
                         <div style="margin-top: 5px">
                             <input type="submit" value="إضافة الخطة">
                         </div>
