@@ -101,16 +101,18 @@
     </div>
 
 
-    <div class="flex mt-3">
-        <div class="mx-auto">
-            {{ $plan->name }}
+    <div class="flex mt-10">
+        <div class="flex flex-col w-1/2">
+            <div>الأجزاء :</div>
+            <div>عدد أيام المراجعة :</div>
+            <div>أوجه المراجعة اليومية :</div>
         </div>
-    </div>
 
-    <div class="flex flex-col mt-8">
-        <div>اسم الطالب/ة :</div>
-        <div>اسم المعلم/ة :</div>
-        <div>تاريخ استلام الجدول:</div>
+        <div class="flex flex-col">
+            <div>اسم الطالبـ / ـة :</div>
+            <div>اسم المعلمـ / ـة :</div>
+            <div>تاريخ استلام الجدول:</div>
+        </div>
     </div>
 
 
