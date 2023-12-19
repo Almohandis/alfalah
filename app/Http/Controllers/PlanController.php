@@ -191,7 +191,7 @@ class PlanController extends Controller
             'days'  => 'required',
             'juzs'  => 'required',
         ]);
-        $plan->create([
+        $plan->update([
             'name'  => $request->name,
             'review_faces'    => $request->review_faces,
             'days'  => $request->days,

@@ -26,6 +26,17 @@
         <div>
             <h1 style="color: white">دار الفلاح</h1>
         </div>
+        <div class="flex mt-2">
+            @if ($errors->any())
+                <div class="bg-red-500 mx-auto my-0.5 rounded px-3 py-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="text-white">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
         <div
             class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
             {{ $slot }}
