@@ -23,7 +23,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('login', function () {
-    return redirect()->route('/');
+    return redirect()->route('welcome');
 });
 Route::post('login', [LoginController::class, 'index'])->name('login');
 
