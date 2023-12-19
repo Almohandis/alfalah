@@ -162,6 +162,11 @@
                         @php
                             $current_week++;
                         @endphp
+                    @elseif($num_days === $num_weeks)
+                        <td class="th">{{ $weeks_counter++ }}</td>
+                        @php
+                            $current_week++;
+                        @endphp
                     @endif
 
                     <td></td>
@@ -205,7 +210,7 @@
                                 <td>{{ $parts[$i * $save_faces - 1]->end_name . ' ' . $parts[$i * $save_faces - 1]->end }}
                                 </td>
                             @endif
-                        @else
+                        @elseif($confirm_faces)
                             <td></td>
                             <td></td>
                         @endif
@@ -221,7 +226,7 @@
                                 <td>{{ $parts[$current_week * $save_faces - 1]->end_name . ' ' . $parts[$current_week * $save_faces - 1]->end }}
                                 </td>
                             @endif
-                        @else
+                        @elseif($confirm_faces)
                             <td></td>
                             <td></td>
                         @endif

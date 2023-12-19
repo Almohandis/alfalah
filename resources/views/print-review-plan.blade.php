@@ -153,6 +153,11 @@
                         @php
                             $current_week++;
                         @endphp
+                    @elseif($num_days === $num_weeks)
+                        <td class="th">{{ $weeks_counter++ }}</td>
+                        @php
+                            $current_week++;
+                        @endphp
                     @endif
 
                     <td></td>
