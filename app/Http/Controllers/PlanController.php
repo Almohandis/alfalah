@@ -198,12 +198,16 @@ class PlanController extends Controller
         ]);
 
         $plan->juzs()->detach();
-        // return 55;
 
         foreach ($request->juzs as $juz) {
             $plan->juzs()->attach($juz);
         }
 
         return redirect()->back()->withSuccess('تم تعديل الخطة بنجاح');
+    }
+    public function deleteReviewPlan(ReviewPlan $plan)
+    {
+        $plan->delete();
+        return redirect()->back()->withSuccess('تم حذف الخطة بنجاح');
     }
 }

@@ -41,8 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/crp', [PlanController::class, 'createReviewPlan'])->name('create-review-plan');
     Route::get('/prp/{plan}', [PlanController::class, 'printReviewPlan'])->name('print-review-plan');
     Route::get('/erp/{plan}', [PlanController::class, 'editReviewPlan'])->name('edit-review-plan');
-
     Route::post('/urp/{plan}', [PlanController::class, 'updateReviewPlan'])->name('update-review-plan');
+    
     Route::post('/drp/{plan}', [PlanController::class, 'deleteReviewPlan'])->name('delete-review-plan');
 
 });
