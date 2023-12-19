@@ -190,6 +190,9 @@ return [
         'name' => 'الاسم',
         'confirm_faces' => 'أوجه التثبيت',
         'save_faces' => 'أوجه الحفظ',
+        'review_faces' => 'أوجه المراجعة',
+        'days'  => 'الأيام',
+        'juzs'  => 'الأجزاء',
     ],
 
     'other' => [

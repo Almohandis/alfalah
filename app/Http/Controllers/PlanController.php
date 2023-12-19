@@ -174,6 +174,36 @@ class PlanController extends Controller
             'num_days'  => $number_of_days,
             'num_weeks' => $number_of_weeks,
         ]);
+    }
+    public function editReviewPlan(ReviewPlan $plan)
+    {
+        $juzs = Juz::get();
+        return view('edit-review-plan', [
+            'plan'  => $plan,
+            'juzs'  => $juzs,
+        ]);
+    }
+    public function updateReviewPlan(Request $request, ReviewPlan $plan)
+    {
+        $request->validate([
+            'name' => 'required',
+            'review_faces' => 'required',
+            'days'  => 'required',
+            'juzs'  => 'required',
+        ]);
+        $plan->create([
+            'name'  => $request->name,
+            'review_faces'    => $request->review_faces,
+            'days'  => $request->days,
+        ]);
 
+        $plan->juzs()->detach();
+        // return 55;
+
+        foreach ($request->juzs as $juz) {
+            $plan->juzs()->attach($juz);
+        }
+
+        return redirect()->back()->withSuccess('تم تعديل الخطة بنجاح');
     }
 }
