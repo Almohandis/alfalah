@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('review_plans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('juz_text');
+            $table->string('day_text');
+            $table->string('face_text');
             $table->double('review_faces');
             $table->tinyInteger('days');
             $table->timestamps();

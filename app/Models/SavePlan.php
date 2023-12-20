@@ -11,6 +11,9 @@ class SavePlan extends Model
 
     protected $fillable = [
         'name',
+        'juz_text',
+        'day_text',
+        'face_text',
         'direction',
         'juz',
         'save_faces',

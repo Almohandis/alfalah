@@ -34,6 +34,12 @@
                     <form action="{{ route('update-review-plan', ['plan' => $plan->id]) }}" method="POST">
                         @csrf
                         <div>اسم الخطة: <input type="text" name="name" value="{{ $plan->name }}" required></div>
+                        <div>الجزء كتابة: <input type="text" name="juz_text" value="{{ $plan->juz_text }}" required>
+                        </div>
+                        <div>عدد الأيام كتابة: <input type="text" name="day_text" value="{{ $plan->day_text }}"
+                                required></div>
+                        <div>المراجعة اليومية كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
+                                required></div>
                         <div>الأجزاء</div>
                         @php
                             $juz_counter = 0;

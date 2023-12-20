@@ -11,6 +11,9 @@ class ReviewPlan extends Model
 
     protected $fillable = [
         'name',
+        'juz_text',
+        'day_text',
+        'face_text',
         'review_faces',
         'days',
     ];

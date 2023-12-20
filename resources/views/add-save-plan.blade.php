@@ -34,6 +34,9 @@
                     <form action="{{ route('create-save-plan') }}" method="POST">
                         @csrf
                         <div>اسم الخطة: <input type="text" name="name" required></div>
+                        <div>الجزء كتابة: <input type="text" name="juz_text" required></div>
+                        <div>عدد الأيام كتابة: <input type="text" name="day_text" required></div>
+                        <div>المحفوظ اليومي كتابة: <input type="text" name="face_text" required></div>
                         <div>اتجاه الحفظ:
                             <select name="direction" required>
                                 <option selected value="1">من الفاتحة إلى الناس</option>
@@ -52,7 +55,8 @@
                         <div>عدد أيام التسميع في كل أسبوع: <input type="number" name="days" step="1"
                                 min="1" max="7" value="1" required>
                         </div>
-                        <div>تكرار مقدار الحفظ نفسه في الأسبوع الواحد <input type="checkbox" name="is_same" value="1"></div>
+                        <div>تكرار مقدار الحفظ نفسه في الأسبوع الواحد <input type="checkbox" name="is_same"
+                                value="1"></div>
                         <div style="margin-top: 5px">
                             <input type="submit" value="إضافة الخطة">
                         </div>

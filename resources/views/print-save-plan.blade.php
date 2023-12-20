@@ -102,9 +102,9 @@
 
     <div class="flex mt-10">
         <div class="flex flex-col w-1/2">
-            <div>الجزء :</div>
-            <div>عدد أيام الحفظ :</div>
-            <div>أوجه الحفظ اليومية :</div>
+            <div>الجزء : {{ $plan->juz_text }}</div>
+            <div>عدد أيام الحفظ : {{ $plan->day_text }}</div>
+            <div>أوجه الحفظ اليومية : {{ $plan->face_text }}</div>
         </div>
 
         <div class="flex flex-col">

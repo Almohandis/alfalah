@@ -103,9 +103,9 @@
 
     <div class="flex mt-10">
         <div class="flex flex-col w-1/2">
-            <div>الأجزاء :</div>
-            <div>عدد أيام المراجعة :</div>
-            <div>أوجه المراجعة اليومية :</div>
+            <div>الأجزاء : {{ $plan->juz_text }}</div>
+            <div>عدد أيام المراجعة : {{ $plan->day_text }}</div>
+            <div>أوجه المراجعة اليومية : {{ $plan->face_text }}</div>
         </div>
 
         <div class="flex flex-col">

@@ -27,6 +27,9 @@ class PlanController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'juz_text'  =>  'required',
+            'day_text'  =>  'required',
+            'face_text' =>  'required',
             'direction' => 'required',
             'juz'   => 'required',
             'save_faces' => 'required',
@@ -42,6 +45,9 @@ class PlanController extends Controller
         }
         SavePlan::create([
             'name'  => $request->name,
+            'juz_text'  => $request->juz_text,
+            'day_text'  => $request->day_text,
+            'face_text' => $request->face_text,
             'direction' => $request->direction,
             'juz'   => $request->juz,
             'save_faces'    => $request->save_faces,
@@ -90,6 +96,9 @@ class PlanController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'juz_text'  =>  'required',
+            'day_text'  =>  'required',
+            'face_text' =>  'required',
             'direction' => 'required',
             'juz'   => 'required',
             'save_faces' => 'required',
@@ -106,6 +115,9 @@ class PlanController extends Controller
         // return $request;
         $plan->update([
             'name'  => $request->name,
+            'juz_text'  => $request->juz_text,
+            'day_text'  => $request->day_text,
+            'face_text' => $request->face_text,
             'direction' => $request->direction,
             'juz'   => $request->juz,
             'save_faces'    => $request->save_faces,
@@ -140,12 +152,18 @@ class PlanController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'juz_text'  =>  'required',
+            'day_text'  =>  'required',
+            'face_text' =>  'required',
             'review_faces' => 'required',
             'days'  => 'required',
             'juzs'  => 'required',
         ]);
         $plan = ReviewPlan::create([
             'name'  => $request->name,
+            'juz_text'  => $request->juz_text,
+            'day_text'  => $request->day_text,
+            'face_text' => $request->face_text,
             'review_faces'    => $request->review_faces,
             'days'  => $request->days,
         ]);
@@ -187,12 +205,18 @@ class PlanController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'juz_text'  =>  'required',
+            'day_text'  =>  'required',
+            'face_text' =>  'required',
             'review_faces' => 'required',
             'days'  => 'required',
             'juzs'  => 'required',
         ]);
         $plan->update([
             'name'  => $request->name,
+            'juz_text'  => $request->juz_text,
+            'day_text'  => $request->day_text,
+            'face_text' => $request->face_text,
             'review_faces'    => $request->review_faces,
             'days'  => $request->days,
         ]);

@@ -34,6 +34,12 @@
                     <form action="{{ route('update-save-plan', ['plan' => $plan->id]) }}" method="POST">
                         @csrf
                         <div>اسم الخطة: <input type="text" name="name" value="{{ $plan->name }}" required></div>
+                        <div>الجزء كتابة: <input type="text" name="juz_text" value="{{ $plan->juz_text }}" required>
+                        </div>
+                        <div>عدد الأيام كتابة: <input type="text" name="day_text" value="{{ $plan->day_text }}"
+                                required></div>
+                        <div>المحفوظ اليومي كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
+                                required></div>
                         <div>اتجاه الحفظ:
                             <select name="direction" required>
                                 <option @selected($plan->direction) value="1">من الفاتحة إلى الناس</option>
