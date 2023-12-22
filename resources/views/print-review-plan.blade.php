@@ -96,7 +96,11 @@
         <p class="text-3xl" style="align-self: center;">خطة المراجعة</p>
 
         <div>
-            <img src="{{ asset('logo.jpg') }}" alt="الشعار" width="100">
+            @if (Auth::user()->id != 4)
+                <img src="{{ asset('logo.jpg') }}" alt="الشعار" width="100">
+            @else
+                <img src="{{ asset('sabili.jpg') }}" alt="الشعار" width="100">
+            @endif
         </div>
     </div>
 
@@ -194,7 +198,11 @@
 
     <div class="page-footer">
         {{-- <p>Date: {{ date('M d, Y') }}, time: {{ date('h:i A') }} </p> --}}
-        <p class="text-center">جميع الحقوق محفوظة لدار الفلاح - {{ date('Y') }} &copy;</p>
+        @if (Auth::user()->id != 4)
+            <p class="text-center">جميع الحقوق محفوظة لدار الفلاح - {{ date('Y') }} &copy;</p>
+        @else
+            <p class="text-center">جميع الحقوق محفوظة لسبيلي - {{ date('Y') }} &copy;</p>
+        @endif
     </div>
 
 
