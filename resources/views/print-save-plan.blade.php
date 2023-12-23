@@ -164,7 +164,9 @@
                             $current_week++;
                         @endphp
                     @elseif (($i + 1) % $plan->days == 1 && $weeks_counter == $num_weeks)
-                        <td class="th" rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
+                        <td class="th"
+                            rowspan="{{ $num_days % $plan->days ? $num_days % $plan->days : $plan->days }}">
+                            {{ $weeks_counter++ }}</td>
                         @php
                             $current_week++;
                         @endphp
@@ -187,7 +189,6 @@
                             <td>{{ $parts[($i + 1) * $save_faces - 1]->end_name . ' ' . $parts[($i + 1) * $save_faces - 1]->end }}
                             </td>
                         @else
-                            {{-- {{ dd($i) }} --}}
                             {{-- If the current part is the last part, calculate the remaining which can be less than a single save face --}}
                             <td>{{ $parts[$i * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end_name . ' ' . $parts[$i * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end }}
                             </td>
@@ -200,7 +201,6 @@
                             <td>{{ $parts[($current_week + 1) * $save_faces - 1]->end_name . ' ' . $parts[($current_week + 1) * $save_faces - 1]->end }}
                             </td>
                         @else
-                            {{-- {{ dd('i: ' . $i . ',  current week:' . $current_week . ', num weeks: ' . $num_weeks . ', num faces:' . $save_faces) }} --}}
                             <td>{{ $parts[$current_week * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end_name . ' ' . $parts[$current_week * $save_faces + ($num_parts % $save_faces ? $num_parts % $save_faces : $save_faces) - 1]->end }}
                             </td>
                         @endif

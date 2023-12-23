@@ -155,7 +155,9 @@
                             $current_week++;
                         @endphp
                     @elseif (($i + 1) % $plan->days == 1 && $weeks_counter == $num_weeks)
-                        <td class="th" rowspan="{{ ($i + 1) / $plan->days }}">{{ $weeks_counter++ }}</td>
+                        <td class="th"
+                            rowspan="{{ $num_days % $plan->days ? $num_days % $plan->days : $plan->days }}">
+                            {{ $weeks_counter++ }}</td>
                         @php
                             $current_week++;
                         @endphp
@@ -172,12 +174,13 @@
                     {{-- Get the starting of the part by multiplying number of review faces by i --}}
                     <td>{{ $parts[$i * $review_faces]->start_name . ' ' . $parts[$i * $review_faces]->start }}</td>
                     {{-- If the current part is not the last part --}}
-                    @if (ceil($num_parts / $review_faces - 1) != $i)
+                    {{-- ceil($num_parts / $review_faces - 1) != $i --}}
+                    @if ($num_days - 1 != $i)
                         <td>{{ $parts[($i + 1) * $review_faces - 1]->end_name . ' ' . $parts[($i + 1) * $review_faces - 1]->end }}
                         </td>
                     @else
                         {{-- If the current part is the last part, calculate the remaining which can be less than a single review face --}}
-                        <td>{{ $parts[$i * $review_faces + ($num_parts % $review_faces) - 1]->end_name . ' ' . $parts[$i * $review_faces + ($num_parts % $review_faces) - 1]->end }}
+                        <td>{{ $parts[$i * $review_faces + ($num_parts % $review_faces ? $num_parts % $review_faces : $review_faces) - 1]->end_name . ' ' . $parts[$i * $review_faces + ($num_parts % $review_faces ? $num_parts % $review_faces : $review_faces) - 1]->end }}
                         </td>
                     @endif
 
