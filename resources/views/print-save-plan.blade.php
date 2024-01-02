@@ -106,9 +106,9 @@
 
     <div class="flex mt-10">
         <div class="flex flex-col w-1/2">
-            <div>الجزء : {{ $plan->juz_text }}</div>
-            <div>عدد أيام الحفظ : {{ $plan->day_text }}</div>
-            <div>أوجه الحفظ الأسبوعية : {{ $plan->face_text }}</div>
+            <div class="arabic">الجزء : {{ $plan->juz_text }}</div>
+            <div class="arabic">عدد أيام الحفظ : {{ $plan->day_text }}</div>
+            <div class="arabic">أوجه الحفظ الأسبوعية : {{ $plan->face_text }}</div>
         </div>
 
         <div class="flex flex-col">
@@ -258,7 +258,7 @@
     <div class="page-footer">
         {{-- <p>Date: {{ date('M d, Y') }}, time: {{ date('h:i A') }} </p> --}}
         @if (Auth::user()->id != 4)
-            <p class="text-center">جميع الحقوق محفوظة لدار الفلاح - {{ date('Y') }} &copy;</p>
+            <p class="text-center">رسالة الدار: الارتقاء بالطالب إيمانيًا وتعليميًا وسلوكيًا.</p>
         @else
             <p class="text-center">جميع الحقوق محفوظة لسبيلي - {{ date('Y') }} &copy;</p>
         @endif
@@ -290,6 +290,12 @@
             for (let i = 0; i < elements.length; i++) {
                 elements[i].innerHTML = elements[i].innerHTML.toIndiaDigits();
             }
+
+            elements = document.getElementsByClassName('arabic');
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = elements[i].innerHTML.toIndiaDigits();
+            }
+
             document.querySelector('tbody').lastElementChild.style.borderBottom = '2px solid black';
             window.print();
         }

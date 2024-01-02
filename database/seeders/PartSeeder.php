@@ -13,7 +13,7 @@ class PartSeeder extends Seeder
     public function run(): void
     {
         Part::factory()
-            ->count(1194)
+            ->count(1203)
             ->sequence(
 ['juz' => 1, 'rank' => 1, 'start_name' => 'الفاتحة', 'start' => 1, 'end_name' => 'الفاتحة', 'end' => 7],                        
 ['juz' => 1, 'rank' => 2, 'start_name' => 'البقرة', 'start' => 1, 'end_name' => 'البقرة', 'end' => 5],                        
@@ -1195,20 +1195,29 @@ class PartSeeder extends Seeder
 ['juz' => 30, 'rank' => 89, 'start_name' => 'الفجر', 'start' => 15, 'end_name' => 'الفجر', 'end' => 30],                        
 ['juz' => 30, 'rank' => 90, 'start_name' => 'البلد', 'start' => 1, 'end_name' => 'البلد', 'end' => 20],                            
 ['juz' => 30, 'rank' => 91, 'start_name' => 'الشمس', 'start' => 1, 'end_name' => 'الشمس', 'end' => 15],                        
-['juz' => 30, 'rank' => 92, 'start_name' => 'الليل', 'start' => 1, 'end_name' => 'الليل', 'end' => 21],                        
-['juz' => 30, 'rank' => 93, 'start_name' => 'الضحى', 'start' => 1, 'end_name' => 'الشرح', 'end' => 8],                        
-['juz' => 30, 'rank' => 95, 'start_name' => 'التين', 'start' => 1, 'end_name' => 'التين', 'end' => 8],                        
-['juz' => 30, 'rank' => 96, 'start_name' => 'العلق', 'start' => 1, 'end_name' => 'العلق', 'end' => 19],                        
-['juz' => 30, 'rank' => 97, 'start_name' => 'القدر', 'start' => 1, 'end_name' => 'القدر', 'end' => 5],                        
-['juz' => 30, 'rank' => 98, 'start_name' => 'البينة', 'start' => 1, 'end_name' => 'البينة', 'end' => 8],                        
-['juz' => 30, 'rank' => 99, 'start_name' => 'الزلزلة', 'start' => 1, 'end_name' => 'الزلزلة', 'end' => 8],                        
-['juz' => 30, 'rank' => 100, 'start_name' => 'العاديات', 'start' => 1, 'end_name' => 'العاديات', 'end' => 11],                        
-['juz' => 30, 'rank' => 101, 'start_name' => 'القارعة', 'start' => 1, 'end_name' => 'القارعة', 'end' => 11],                        
-['juz' => 30, 'rank' => 102, 'start_name' => 'التكاثر', 'start' => 1, 'end_name' => 'العصر', 'end' => 3],                        
-['juz' => 30, 'rank' => 104, 'start_name' => 'الهمزة', 'start' => 1, 'end_name' => 'الفيل', 'end' => 5],                        
-['juz' => 30, 'rank' => 106, 'start_name' => 'قريش', 'start' => 1, 'end_name' => 'الكوثر', 'end' => 3],                        
-['juz' => 30, 'rank' => 109, 'start_name' => 'الكافرون', 'start' => 1, 'end_name' => 'المسد', 'end' => 5],                        
-['juz' => 30, 'rank' => 112, 'start_name' => 'الإخلاص', 'start' => 1, 'end_name' => 'الناس', 'end' => 6],                    
+['juz' => 30, 'rank' => 92, 'start_name' => 'الليل', 'start' => 1, 'end_name' => 'الليل', 'end' => 21],  
+['juz' => 30, 'rank' => 93, 'start_name' => 'الضحى', 'start' => 1, 'end_name' => 'الضحى', 'end' => 11],  
+['juz' => 30, 'rank' => 94, 'start_name' => 'الشرح', 'start' => 1, 'end_name' => 'الشرح', 'end' => 8],  
+['juz' => 30, 'rank' => 95, 'start_name' => 'التين', 'start' => 1, 'end_name' => 'التين', 'end' => 8],  
+['juz' => 30, 'rank' => 96, 'start_name' => 'العلق', 'start' => 1, 'end_name' => 'العلق', 'end' => 19],  
+['juz' => 30, 'rank' => 97, 'start_name' => 'القدر', 'start' => 1, 'end_name' => 'القدر', 'end' => 5],  
+['juz' => 30, 'rank' => 98, 'start_name' => 'البينة', 'start' => 1, 'end_name' => 'البينة', 'end' => 8],  
+['juz' => 30, 'rank' => 99, 'start_name' => 'الزلزلة', 'start' => 1, 'end_name' => 'الزلزلة', 'end' => 8],  
+['juz' => 30, 'rank' => 100, 'start_name' => 'العاديات', 'start' => 1, 'end_name' => 'العاديات', 'end' => 11],  
+['juz' => 30, 'rank' => 101, 'start_name' => 'القارعة', 'start' => 1, 'end_name' => 'القارعة', 'end' => 11],  
+['juz' => 30, 'rank' => 102, 'start_name' => 'التكاثر', 'start' => 1, 'end_name' => 'التكاثر', 'end' => 8],  
+['juz' => 30, 'rank' => 103, 'start_name' => 'العصر', 'start' => 1, 'end_name' => 'العصر', 'end' => 3],  
+['juz' => 30, 'rank' => 104, 'start_name' => 'الهمزة', 'start' => 1, 'end_name' => 'الهمزة', 'end' => 9],  
+['juz' => 30, 'rank' => 105, 'start_name' => 'الفيل', 'start' => 1, 'end_name' => 'الفيل', 'end' => 5],  
+['juz' => 30, 'rank' => 106, 'start_name' => 'قريش', 'start' => 1, 'end_name' => 'قريش', 'end' => 4],  
+['juz' => 30, 'rank' => 107, 'start_name' => 'الماعون', 'start' => 1, 'end_name' => 'الماعون', 'end' => 7],  
+['juz' => 30, 'rank' => 108, 'start_name' => 'الكوثر', 'start' => 1, 'end_name' => 'الكوثر', 'end' => 3],  
+['juz' => 30, 'rank' => 109, 'start_name' => 'الكافرون', 'start' => 1, 'end_name' => 'الكافرون', 'end' => 6],  
+['juz' => 30, 'rank' => 110, 'start_name' => 'النصر', 'start' => 1, 'end_name' => 'النصر', 'end' => 3],  
+['juz' => 30, 'rank' => 111, 'start_name' => 'المسد', 'start' => 1, 'end_name' => 'المسد', 'end' => 5],  
+['juz' => 30, 'rank' => 112, 'start_name' => 'الإخلاص', 'start' => 1, 'end_name' => 'الإخلاص', 'end' => 4],  
+['juz' => 30, 'rank' => 113, 'start_name' => 'الفلق', 'start' => 1, 'end_name' => 'الفلق', 'end' => 5],  
+['juz' => 30, 'rank' => 114, 'start_name' => 'الناس', 'start' => 1, 'end_name' => 'الناس', 'end' => 6],                     
             )->create();
     }
 }
