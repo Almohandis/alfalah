@@ -36,7 +36,7 @@
                         <div>اسم الخطة: <input type="text" name="name" required></div>
                         <div>الجزء كتابة: <input type="text" name="juz_text" required></div>
                         <div>عدد الأيام كتابة: <input type="text" name="day_text" required></div>
-                        <div>المراجعة اليومية كتابة: <input type="text" name="face_text" required></div>
+                        <div>المراجعة الأسبوعية كتابة: <input type="text" name="face_text" required></div>
                         <div>الأجزاء</div>
 
                         @for ($i = 0; $i < 6; $i++)

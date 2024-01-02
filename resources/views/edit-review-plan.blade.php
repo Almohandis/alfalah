@@ -38,7 +38,7 @@
                         </div>
                         <div>عدد الأيام كتابة: <input type="text" name="day_text" value="{{ $plan->day_text }}"
                                 required></div>
-                        <div>المراجعة اليومية كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
+                        <div>المراجعة الأسبوعية كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
                                 required></div>
                         <div>الأجزاء</div>
                         @php

@@ -38,7 +38,7 @@
                         </div>
                         <div>عدد الأيام كتابة: <input type="text" name="day_text" value="{{ $plan->day_text }}"
                                 required></div>
-                        <div>المحفوظ اليومي كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
+                        <div>المحفوظ الأسبوعي كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
                                 required></div>
                         <div>اتجاه الحفظ:
                             <select name="direction" required>

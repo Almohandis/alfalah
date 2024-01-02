@@ -109,7 +109,7 @@
         <div class="flex flex-col w-1/2">
             <div>الأجزاء : {{ $plan->juz_text }}</div>
             <div>عدد أيام المراجعة : {{ $plan->day_text }}</div>
-            <div>أوجه المراجعة اليومية : {{ $plan->face_text }}</div>
+            <div>أوجه المراجعة الأسبوعية : {{ $plan->face_text }}</div>
         </div>
 
         <div class="flex flex-col">

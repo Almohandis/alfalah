@@ -36,7 +36,7 @@
                         <div>اسم الخطة: <input type="text" name="name" required></div>
                         <div>الجزء كتابة: <input type="text" name="juz_text" required></div>
                         <div>عدد الأيام كتابة: <input type="text" name="day_text" required></div>
-                        <div>المحفوظ اليومي كتابة: <input type="text" name="face_text" required></div>
+                        <div>المحفوظ الأسبوعي كتابة: <input type="text" name="face_text" required></div>
                         <div>اتجاه الحفظ:
                             <select name="direction" required>
                                 <option selected value="1">من الفاتحة إلى الناس</option>
