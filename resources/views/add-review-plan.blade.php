@@ -33,10 +33,10 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('create-review-plan') }}" method="POST">
                         @csrf
-                        <div>اسم الخطة: <input type="text" name="name" required></div>
-                        <div>الجزء كتابة: <input type="text" name="juz_text" required></div>
-                        <div>عدد الأيام كتابة: <input type="text" name="day_text" required></div>
-                        <div>المراجعة الأسبوعية كتابة: <input type="text" name="face_text" required></div>
+                        <div>اسم الخطة على الموقع: <input type="text" name="name" required></div>
+                        <div>اسم الخطة في الملف: <input type="text" name="juz_text" required></div>
+                        <div>عدد الأيام في الملف: <input type="text" name="day_text" required></div>
+                        <div>المراجعة الأسبوعية في الملف: <input type="text" name="face_text" required></div>
                         <div>الأجزاء</div>
 
                         @for ($i = 0; $i < 6; $i++)

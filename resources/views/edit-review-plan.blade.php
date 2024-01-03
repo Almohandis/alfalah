@@ -33,12 +33,12 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('update-review-plan', ['plan' => $plan->id]) }}" method="POST">
                         @csrf
-                        <div>اسم الخطة: <input type="text" name="name" value="{{ $plan->name }}" required></div>
-                        <div>الجزء كتابة: <input type="text" name="juz_text" value="{{ $plan->juz_text }}" required>
+                        <div>اسم الخطة على الموقع: <input type="text" name="name" value="{{ $plan->name }}" required></div>
+                        <div>اسم الخطة في الملف: <input type="text" name="juz_text" value="{{ $plan->juz_text }}" required>
                         </div>
-                        <div>عدد الأيام كتابة: <input type="text" name="day_text" value="{{ $plan->day_text }}"
+                        <div>عدد الأيام في الملف: <input type="text" name="day_text" value="{{ $plan->day_text }}"
                                 required></div>
-                        <div>المراجعة الأسبوعية كتابة: <input type="text" name="face_text" value="{{ $plan->face_text }}"
+                        <div>المراجعة الأسبوعية في الملف: <input type="text" name="face_text" value="{{ $plan->face_text }}"
                                 required></div>
                         <div>الأجزاء</div>
                         @php
