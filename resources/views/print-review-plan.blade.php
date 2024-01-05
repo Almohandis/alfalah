@@ -213,6 +213,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         window.onload = function() {
+            document.body.contentEditable = true;
             String.prototype.toIndiaDigits = function() {
                 var id = [
                     '٠',
